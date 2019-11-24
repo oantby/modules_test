@@ -2,20 +2,20 @@
 #include <dlfcn.h>
 using namespace std;
 
-int main() {
-	void *h = dlopen("/Users/logan/dll.so", RTLD_LAZY);
-	if (!h) {
-		cerr << "Failed to load so" << endl;
-		return 1;
-	}
-	dlerror();
-	int (*ktt)(void) = (int(*)(void))dlsym(h, "kill_the_thing");
-	void *e = dlerror();
-	if (e) {
-		cerr << e << endl;
-		return 2;
-	}
+int thing(int a, string b, double c) {
+	cout << a << '\n' << b << '\n' << c << '\n';
+	return a/c;
+}
 
-	cout << ktt() << endl;
+template <typename... Ts>
+void invokeHook(string hook, Ts... args) {
+	int (*f)(Ts...) = thing;
+	if (hook == "thing") {
+		cout << f(args...) << '\n';
+	}
+}
+
+int main() {
+	invokeHook("thing", 5, string("hello"), 1.24);
 	return 0;
 }
