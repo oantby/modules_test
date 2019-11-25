@@ -10,4 +10,8 @@ void thing(int *r, bool go = false) {
 	go && (*r = 3);
 }
 
+void identify() {
+	cout << "I'm module 3.  I set values to 3!" << endl;
+}
+
 }

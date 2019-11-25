@@ -26,11 +26,14 @@ void invokeHook(string hook, Ts... args) {
 
 int main() {
 	loadModules();
+	
+	invokeHook("identify");
 	int v = 21;
 	invokeHook("thing", &v, true);
 	v = 10;
 	invokeHook("thing", &v, true);
 	cout << v << endl;
+	
 	return 0;
 }
 
