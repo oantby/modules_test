@@ -1,13 +1,6 @@
-#include <iostream>
-using namespace std;
+#include <dlfcn.h>
 
-extern "C" {
-
-void thing(int *r, bool go = false) {
-	#ifdef DEBUG
-	cerr << "Invoking " << __FUNCTION__ << " from " << __FILE__ << endl;
-	#endif
-	go && (*r = 2);
-}
-
+extern "C" void twoDoThing() {
+	void (*f)() = (void (*)())dlsym(RTLD_DEFAULT, "sayOne");
+	f();
 }
